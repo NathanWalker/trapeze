@@ -1,6 +1,6 @@
 import { dirname, join } from 'path';
 import os from 'os';
-import { temporaryFile } from 'tempy';
+import { randomBytes } from 'crypto';
 import { pathExists, readFile, writeFile } from '@ionic/utils-fs';
 import { spawnCommand } from '../util/subprocess';
 import { indent } from '../util/text';
@@ -225,12 +225,14 @@ export class GradleFile extends VFSStorable {
     if (!this.tempFile) {
       // If the temp file doesn't exist yet, create it and write the current file source to it
       const gradleContents = await this.getGradleSource();
-      this.tempFile = temporaryFile({ extension: 'gradle' });
+      const tempDir = os.tmpdir();
+      const randomSuffix = randomBytes(16).toString('hex');
+      this.tempFile = join(tempDir, `gradle-${randomSuffix}.gradle`);
       await writeFile(this.tempFile, gradleContents);
     } else if (vfsRef) {
       // Otherwise if it already exists then write the current vfs data to it
       if (vfsRef?.getData()?.getDocument()) {
-        await writeFile(this.tempFile, vfsRef?.getData()?.getDocument());
+        await writeFile(this.tempFile!, vfsRef?.getData()?.getDocument());
       }
     }
 
@@ -254,7 +256,7 @@ export class GradleFile extends VFSStorable {
             '-cp',
             'lib/groovy-3.0.9.jar;lib/json-20210307.jar;capacitor-gradle-parse.jar;.',
             'com.capacitorjs.gradle.Parse',
-            this.tempFile,
+            this.tempFile!,
           ],
           {
             cwd: parserRoot,
@@ -268,7 +270,7 @@ export class GradleFile extends VFSStorable {
             '-cp',
             'lib/*:capacitor-gradle-parse.jar:.',
             'com.capacitorjs.gradle.Parse',
-            this.tempFile,
+            this.tempFile!,
           ],
           {
             cwd: parserRoot,
