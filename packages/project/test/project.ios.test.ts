@@ -1,4 +1,4 @@
-import tempy from 'tempy';
+import { temporaryDirectory } from 'tempy';
 import { join } from 'path';
 import { copy, pathExists, readFile, rm } from '@ionic/utils-fs';
 import { IosPbxArrayValue, MobileProject, StringsFile, XCConfigFile, XmlFile } from '../src';
@@ -11,7 +11,7 @@ describe('project - ios standard', () => {
 
   let dir: string;
   beforeEach(async () => {
-    dir = tempy.directory();
+    dir = temporaryDirectory();
     await copy('../common/test/fixtures/ios-and-android', dir);
 
     config = {
@@ -668,7 +668,7 @@ describe('ios - no info plist case', () => {
   let project: MobileProject;
   let dir: string;
   beforeEach(async () => {
-    dir = tempy.directory();
+    dir = temporaryDirectory();
     await copy('../common/test/fixtures/ios-no-info-plist', dir);
 
     config = {
@@ -700,7 +700,7 @@ describe('ios - empty template case', () => {
   let project: MobileProject;
   let dir: string;
   beforeEach(async () => {
-    dir = tempy.directory();
+    dir = temporaryDirectory();
     await copy('../common/test/fixtures/ios-no-current-project-version', dir);
 
     config = {
@@ -727,7 +727,7 @@ describe('ios - issue #83', () => {
   let project: MobileProject;
   let dir: string;
   beforeEach(async () => {
-    dir = tempy.directory();
+    dir = temporaryDirectory();
     await copy('../common/test/fixtures/ios-cfbundleversion-pbx-83', dir);
 
     config = {
