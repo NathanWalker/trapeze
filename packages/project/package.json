@@ -1,11 +1,12 @@
 {
   "name": "@nstudio/trapezedev-project",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "description": "Trapeze mobile configuration API for managing projects through code",
   "author": "Ionic Team <hi@ionic.io> (https://ionicframework.com) ",
   "license": "SEE LICENSE",
   "files": [
     "dist",
+    "vendor",
     "README.md"
   ],
   "scripts": {
@@ -33,9 +34,10 @@
     "prettier": "^2.7.1",
     "prompts": "^2.4.2",
     "replace": "^1.1.0",
+    "simple-plist": "^1.4.0",
     "tmp": "^0.2.1",
     "ts-node": "^10.2.1",
-    "xcode": "^3.0.1",
+    "uuid": "^11.1.0",
     "xml-js": "^1.6.11",
     "xpath": "^0.0.32",
     "yargs": "^17.2.1"
