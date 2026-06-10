@@ -1,4 +1,4 @@
-import xcode from 'xcode';
+import xcode from '../../vendor/xcode';
 import { pathExists } from '@ionic/utils-fs';
 
 export async function parsePbxProject(filename: string): Promise<any> {
